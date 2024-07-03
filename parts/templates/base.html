@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Project{% endblock %}</title>
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #343a40; /* dark 배경색 설정 */
+            color: #ffffff; /* 텍스트 색상을 밝은 색으로 설정 (예: 흰색) */
+        }
+        .navbar .update-date {
+            margin-left: auto;
+            color: white;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid"> <!-- 좌우 여백 없이 꽉 차게 설정 -->
+             <a class="navbar-brand" href="https://www.royalenfield.com/kr/kr/">
+                <img src="{% static 'content/logo.svg' %}" alt="로얄엔필드 로고" height="30">
+             </a>
+            <div class="update-date" align="right">
+                업데이트 : 2024.06.27
+            </div>
+        <!--<div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.royalenfield.com/kr/kr/">Home</a>
+                </li>
+            </ul>
+        </div>-->
+        </div>
+    </nav>
+   <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Scroll Position Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Scroll to saved position on page load
+            if (sessionStorage.getItem("scrollPosition")) {
+                window.scrollTo(0, sessionStorage.getItem("scrollPosition"));
+                sessionStorage.removeItem("scrollPosition");
+            }
+
+            // Save scroll position before navigating away
+            document.querySelectorAll('a.page-link').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    sessionStorage.setItem("scrollPosition", window.scrollY);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
