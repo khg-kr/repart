@@ -6,9 +6,9 @@ from django.db.models import Q
 
 def part_list(request):
 
-    query = request.GET.get('q')
-    parts = Part.objects.none()
-    message = ""
+    query = request.GET.get('q', '')
+    #parts = Part.objects.all()
+
 
     if query:
         if len(query) >= 2:
@@ -21,7 +21,7 @@ def part_list(request):
     else:
         parts = Part.objects.all()
 
-    paginator = Paginator(parts, 14)  # 페이지당 15개씩 표시
+    paginator = Paginator(parts, 14)  # 페이지당 14개씩 표시
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'part_list.html', {'page_obj': page_obj, 'query': query})
